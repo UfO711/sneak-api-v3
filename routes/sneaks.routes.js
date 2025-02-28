@@ -42,29 +42,29 @@ module.exports = (app) => {
 
     //grabs the most popular sneakers 
     app.get('/home', function(req, res){
-        // const count = req.query.count || 40 // if the user doesn't provide the query param, it defaults to 40
-        // sneaks.getMostPopular(count, function(error, products){
-        //     if (error) {
-        //         console.log(error)
-        //         res.send("Product Not Found");
-        //       } else {
-        //         res.json(products);
-        //       }
-        // })
-        sneaks.getMostPopular(12, (err, products) => {
-          if (err) {
-              return res.status(500).json({ error: err.message });
-          }
+        const count = req.query.count || 40 // if the user doesn't provide the query param, it defaults to 40
+        sneaks.getMostPopular(count, function(error, products){
+            if (error) {
+                console.log(error)
+                res.send("Product Not Found");
+              } else {
+                res.json(products);
+              }
+        })
+        // sneaks.getMostPopular(12, (err, products) => {
+        //   if (err) {
+        //       return res.status(500).json({ error: err.message });
+        //   }
   
-          // Filter products to exclude those with names containing the keywords
-          const filteredProducts = products.filter(product => {
-              return !filterKeywords.some(keyword => 
-                  product.shoeName.toLowerCase().includes(keyword.toLowerCase())
-              );
-          });
+        //   // Filter products to exclude those with names containing the keywords
+        //   const filteredProducts = products.filter(product => {
+        //       return !filterKeywords.some(keyword => 
+        //           product.shoeName.toLowerCase().includes(keyword.toLowerCase())
+        //       );
+        //   });
   
-          res.json(filteredProducts);
-        });
+        //   res.json(filteredProducts);
+        // });
     });
 
     //Grabs all sneakers given a keyword/parameter
